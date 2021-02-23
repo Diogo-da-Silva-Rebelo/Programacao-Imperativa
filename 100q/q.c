@@ -124,6 +124,7 @@ char* mystrstr (char s1[], char s2[]) {
     for (i = 0; s1[i]; i++) {
         for (j = 0; s1[i + j] && s2[j] && s1[i + j] == s2[j]; j++) {
             if (!s2[j + 1]) return s1 + i;
+            //anda tantas vezes quanto as chars iguais, daí s1+i.
         }
     }
     return NULL;
@@ -149,8 +150,32 @@ a verificar as duas posições se coincidem. Assim que elas deixarem de coin
 cidir, então, avançamos com a posição de s1 e voltamos a analisar com todas
 as posições de s2. A comparação para até que as posições sejam diferentes.
 Enquanto forem iguais, vamos avançando para "guardar" a string a devolver.
-
  */
+
+//11.Função que inverte uma string
+void strrev (char s[]) {
+    int i, j, last;
+
+    for (i = 0; s[i]; i++);
+    i--;
+    for (j = 0; j < i; i--, j++) {
+        last = s[i];
+        s[i] = s[j];
+        s[j] = last;
+    }
+    return;
+}
+
+//12.Remoção de vogais de uma string
+void strnoV (char s[]) {
+    int j,i = 0;
+    for (i=0; s[i];i++){
+        if(s[i] == 'a' ||s[i] == 'e' ||s[i] == 'i' ||s[i] == 'o' ||s[i] == 'u' ||s[i] == 'A' ||s[i] == 'E' ||s[i] == 'I' ||s[i] == 'O' ||s[i] == 'U'){
+            for(j = i; s[j]; j++) s[j] = s[j+1];
+            i--;
+        }
+    }
+}
 
 int main(){
     return(0);

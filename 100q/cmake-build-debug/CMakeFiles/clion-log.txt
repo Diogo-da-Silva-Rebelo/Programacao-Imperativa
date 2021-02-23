@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /home/diogo/CLionProjects/100q Select CMakeLists.txt
