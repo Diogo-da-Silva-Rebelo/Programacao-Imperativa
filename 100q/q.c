@@ -167,7 +167,7 @@ void strrev (char s[]) {
 }
 
 //12.Remoção de vogais de uma string
-void strnoV (char s[]) {
+void mystrnoV (char s[]) {
     int j,i = 0;
     for (i=0; s[i];i++){
         if(s[i] == 'a' ||s[i] == 'e' ||s[i] == 'i' ||s[i] == 'o' ||s[i] == 'u' ||s[i] == 'A' ||s[i] == 'E' ||s[i] == 'I' ||s[i] == 'O' ||s[i] == 'U'){
@@ -177,6 +177,32 @@ void strnoV (char s[]) {
     }
 }
 
-int main(){
-    return(0);
+//13. Trunca as palavras com, no máximo, n careteres
+void truncW (char t[], int n) {
+    int i = 0, length = 0, j;
+    while (t[i]) {
+        if (t[i] == ' ' || t[i] == '\n' || t[i] == '\t') {
+            length = 0;
+            i++;
+        } else if (length < n) {
+            i++;
+            length++;
+        } else {
+            for(j = i; t[j]; j++) t[j] = t[j+1];
+        }
+    }
 }
+
+//14.Char mais frequente na string s
+char charMaisfreq (char s[]){
+
+}
+
+//15.
+
+
+//16.
+
+//17.
+dar commit
+
