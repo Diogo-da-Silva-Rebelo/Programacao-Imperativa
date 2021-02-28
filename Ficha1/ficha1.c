@@ -72,6 +72,17 @@ void xadrez(int n){
 }
 
 void xadrezw(int n){
+    int i=0,j=0;
+    while (i<n){
+        j=0;
+        while (j<n){
+            if ((i+j)%2==0) putchar('#');
+            else putchar('_');
+            j++;
+        }
+        putchar('\n');
+        i++;
+    }
     return;
 }
 
@@ -88,8 +99,8 @@ _#_#_
  */
 
 //rever
-void triangulov (int n){
-    int i,j;
+void triangulov (int n) {
+    int i, j;
     for (i = 0; i < n; i++) {
         for (j = 0; j <= i; j++) {
             putchar('#');
@@ -97,8 +108,8 @@ void triangulov (int n){
         putchar('\n');
     }
     n--;
-    for (i=n;i>0;i--){
-        for (j=0;j>0;j++){
+    for (i = n; i > 0; i--) {
+        for (j = 0; j <i; j++) {
             putchar('#');
         }
         putchar('\n');
@@ -154,13 +165,13 @@ int areaCubos(int n){
 int main() {
     //quadw(5);
     //quadw(6);
-   //xadrez(8);
-   //triangulov(5);
+    //xadrezw(8);
+    //triangulov(5);
    //trianguloh(5);
 
-   for(int i=1; i <= 10;i++) {
+   /*for(int i=1; i <= 10;i++) {
        printf("%d, nCubos: %d, Área envolvente: %d\n", i, nCubos(i), areaCubos(i));
-   }
+   }*/
     return 0;
 }
 
@@ -169,3 +180,4 @@ int main() {
  * Verificar se um número é Primo;
  * Ler uma string em numeração romana e dar o correspondente decimal;
  * Conversão dum número decimal para qualquer outra base entre 2 e 9. */
+
