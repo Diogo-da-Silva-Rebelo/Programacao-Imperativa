@@ -161,23 +161,61 @@ int areaCubos(int n){
     return 8^n;
 }
 
+/* Exercícios propostos:
+ * Calcular os primos até 100;
+ * Verificar se um número é Primo;
+ * Ler uma string em numeração romana e dar o correspondente decimal; */
+
+//Verifica se um número é primo: divisível por ele e pela unidade
+int verificaPrimo (int n){
+   int res=0, i;
+    for (i = 2; i <= (n / 2); i++) {
+        if (n % i == 0) {
+            res++;
+            break;
+        }
+    }
+
+    if (res == 0 && n != 0 && n != 1) return 1;
+    else return 0;
+}
+
+//imprime todos os números primos até 100
+void primosCem (){
+    int i;
+    for(i=0; i<100;i++) {
+        int eprimo = verificaPrimo(i);
+        if (eprimo) printf("%d ", i);
+    }
+    putchar('\n');
+}
+
+//Lê uma string em numeração romana e dá o correspondente decimal
+/* Regras:
+ * Algarismos de menor ou igual valor à direita são somados ao algarismo de maior valor;
+ * Algarismos de menor valor à esquerda são subtraídos do algarismo de maior valor. */
+int converteRomana(char r[]){
+    int i,k;
+
+    switch () {
+    }
+
+    for(i=0;r[i];i++){
+    }
+}
+
 //Função principal
 int main() {
     //quadw(5);
     //quadw(6);
     //xadrezw(8);
     //triangulov(5);
-   //trianguloh(5);
+    //trianguloh(5);
+    //verificaPrimo(0);
+    //primosCem();
 
-   /*for(int i=1; i <= 10;i++) {
-       printf("%d, nCubos: %d, Área envolvente: %d\n", i, nCubos(i), areaCubos(i));
-   }*/
+    /*for(int i=1; i <= 10;i++) {
+        printf("%d, nCubos: %d, Área envolvente: %d\n", i, nCubos(i), areaCubos(i));
+    }*/
     return 0;
 }
-
-/* Exercícios propostos:
- * Calcular os primos até 100;
- * Verificar se um número é Primo;
- * Ler uma string em numeração romana e dar o correspondente decimal;
- * Conversão dum número decimal para qualquer outra base entre 2 e 9. */
-
