@@ -1,0 +1,41 @@
+Conceitos gerais:
+PI T - 4 mar
+- Introdução aos arrays. Os arrays são constituidos por vários elementos, onde cada índice ou posição é acedida atráves
+de um número começado na posição 0, sempre.
+- Se a dimensão de um array é 10, temos posições de 0 a 9.
+- A contagem é feito sempre no final do ciclo.
+- índices num array: i = N-1.
+- Quando definimos um array, temos de definir obrigatoriamente a dimensão deste array, ou seja, quando este se declara.
+- Se não dissermos a dimensão do array, o C pode calcular e determinar através da sintaxe:
+
+    y[]={1,2,3,4,5,6,7,8,9} // dimensão 10
+
+- Função que copia array:
+
+    -> É um procedimento, não calcula nada, só funciona!
+
+void copiaArray (int destino[], int origem[], int N) {
+    for (int i = 0; i<10 ; i++) destino[i] = origem[i];
+    return;
+}
+
+-> Note-se que na função anterior, quando passamos os arrays, não estamos a passar efetivamente o array, mas sim,
+um apontador para a primeira posição do array, passando o seu endereço!
+-> É escusado dizermos que array(&a,&b), pois o b já é por si um endereço, não sendo preciso voltar a especificá-lo.
+
+int main() {
+    int i, y [10] = {1,2,3,4,5,6,7,8,9,10}, b[10];
+    int *p;
+    int a;
+    a = 42;
+    p = a; // p fica com 42, mas 42 não é um endereço válido
+    p = &a; // p fica a apontar para o endereço apontado por a
+    p = b; // p fica a apontar para o endereço b
+
+    copiaArray(b,y, 10);
+    return 0;
+}
+
+/* Em C um array é o endereço da sua primeira componente, ou seja, o que guardamos no y é de facto o endereço já!!
+ * Os arrays são endereços!!!!
+ */
