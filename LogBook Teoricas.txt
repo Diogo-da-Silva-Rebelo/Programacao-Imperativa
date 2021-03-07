@@ -1,4 +1,75 @@
 Conceitos gerais:
+
+PI T - 2 mar
+- Conceito de memória:
+
+int maximo (int a, int b){
+if (a>b) return a;
+else return b;
+
+// return a>b ? a:b;
+
+// if (x>y) y = x;
+//return y;
+}
+
+- Pretende-se uma função que calcula o max e o min e que os retorna para o main, consoante o que se queira.
+- Há comunicação com a main, quando na main é chamada a nossa função.
+- Podiamos criar um struct com um par de numeros e esta função retornava esse par.
+- Em máquina, cada variável está num endereço em memória.
+- Com esta informação podemos criar apontadores para cada variável.
+- & x : sendo x uma variável, significa o endereço de memoria onde está guardado x.
+- * a : sendo a um endereço de memória, significa o conteúdo da memória no endereço a.
+
+//SEM APONTADORES
+void maxMin (int a, int b){
+int t;
+if (x<y) {
+t = x;
+x = y;
+y = t;
+
+}
+
+//COM APONTADORES
+void maxMin (int *a, int *b){
+int t;
+if (x<y) {
+t = *x;
+*x = *y;
+*y = t;
+
+}
+
+int main(){
+int x = 3, y = 6, z;
+int *a;
+
+/*
+a = & x; o a passa a apontar para o endereço do x.
+(*a)++; //ir ao conteúdo de a e incrementar em 1.
+z = *a; //o z passa a ser o conteúdo de a.
+
+//z= maximo(x,y)
+*/
+
+maxMin (&x,&y);
+printf ("%d %d\n", x,y);
+return 0;
+}
+
+- Invocação de uma função: leva a aque se crie uma nova zona memória para a função que é chamada!
+- Vamos empilhando na stack estas zonas de memória. Quando deixamos de precisar da função, regressamos ao ponto onde
+estavamos do main e a zona de memória acaba por "desaparecer", não tendo acesso a ela.
+- O nome das variáveis não está em causa, pois há cópia de valores do main para a função, as duas funções até podem
+ter as variáveis iguais, mas elas só têm nomes iguais, de resto continuam diferentes!!
+- Assim, aquilo que uma função chamada recebe são VALORES, CÓPIAS.
+- A estratégia na troca de valores é guardar numa variável temporario o valor de um deles.
+- Há uma função swap que é muito conhecida por fazer isso, mas com apontadores.
+- Ao usarmos apontadores, os valores são alterados na própria função!!
+- A outra função apenas vai mexer nas coisas que estão a ser apontadas!
+
+
 PI T - 4 mar
 - Introdução aos arrays. Os arrays são constituidos por vários elementos, onde cada índice ou posição é acedida atráves
 de um número começado na posição 0, sempre.
