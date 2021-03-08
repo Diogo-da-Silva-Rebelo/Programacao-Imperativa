@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 /* -> Um compilador converte de um formato para outro. Normalmente,
  * a conversão é feita de código-fonte para código máquina. Esta
@@ -72,9 +73,9 @@ void xadrez(int n){
 }
 
 void xadrezw(int n){
-    int i=0,j=0;
+    int i=0;
     while (i<n){
-        j=0;
+        int j=0;
         while (j<n){
             if ((i+j)%2==0) putchar('#');
             else putchar('_');
@@ -164,7 +165,11 @@ int areaCubos(int n){
 /* Exercícios propostos:
  * Calcular os primos até 100;
  * Verificar se um número é Primo;
- * Ler uma string em numeração romana e dar o correspondente decimal; */
+ * Ler uma string em numeração romana e dar o correspondente decimal;
+ * Lê uma string em numeração romana e dá o correspondente decimal;
+ * Regras para romana:
+ * -> Algarismos de menor ou igual valor à direita são somados ao algarismo de maior valor;
+ * -> Algarismos de menor valor à esquerda são subtraídos do algarismo de maior valor. */
 
 //Verifica se um número é primo: divisível por ele e pela unidade
 int verificaPrimo (int n){
@@ -190,18 +195,46 @@ void primosCem (){
     putchar('\n');
 }
 
-//Lê uma string em numeração romana e dá o correspondente decimal
-/* Regras:
- * Algarismos de menor ou igual valor à direita são somados ao algarismo de maior valor;
- * Algarismos de menor valor à esquerda são subtraídos do algarismo de maior valor. */
-int converteRomana(char r[]){
-    int i,k;
+/* Desenhar um círculo com chars:
 
-    switch () {
-    }
+ r = 4
 
-    for(i=0;r[i];i++){
+    #  l = 0                         r espaços # r espaços
+  #####   l = 1                    r-1 espaços ... r-1 espaços
+ #######  ...
+ #######                            (1,1) - canto superior esquerdo
+#########  Nº char = r*2 +1         (r+1, r+1) - centro do círculo
+ #######                            d(ponto,centro) <= r ->> pertence ao círculo
+ #######  ...                       dois ponot (x1,y1) (x2,y2)
+  ##### l = 6                       sqrt(pow((x2-x1),2) + pow((y2-y1),2))
+    #  = 7                        <=> pow((x2-x1),2) + pow((y2-y1),2) <= pow(r,2)
+                                  <=> (linha - (r+1))^2 + (coluna-(r+1))^2 <= r^2
+                                  <=> condição de teste!!
+
+ Quando condição de teste é V : imprime #
+ Quando condição de teste é F : imprime espaço
+
+ matriz dimensão: (2*r+1) * (2*r+1)
+
+*/
+
+// Estrutura com 2 dimensões = 2 ciclos for aninhados
+// Estrutura com 3 dimensões = 3 ciclos aninhados
+// Assim sucessivamente
+
+int circulo (int r){
+    int count = 0;
+    for (int i=1; i <= (2*r+1) ; i++){
+        for (int j=1 ; j <= (2*r+1); j++){
+            if (pow(i -r-1, 2) + pow(j-r-1,2) <= pow(r,2)){
+                putchar('#');
+                count++;
+            }
+            else putchar(' ');
+        }
+        putchar('\n');
     }
+    return count;
 }
 
 //Função principal
@@ -217,5 +250,9 @@ int main() {
     /*for(int i=1; i <= 10;i++) {
         printf("%d, nCubos: %d, Área envolvente: %d\n", i, nCubos(i), areaCubos(i));
     }*/
+    for (int r = 3; r <= 7; r++) {
+        printf("\n\nEste círculo tem %d pontos.\n", circulo(r));
+    }
     return 0;
+    //OBS: usei o comando gcc ficha1.c -o circulo -lm (para compilar)
 }
