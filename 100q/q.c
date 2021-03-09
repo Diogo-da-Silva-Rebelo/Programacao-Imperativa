@@ -13,7 +13,20 @@ void maior_sequencia(){
         if (num == 0) break;
         if (num > maior) maior=num;
     }
-    while (num != 0);
+    while (num);
+    printf("O maior elemento é: %d\n", maior);
+}
+
+//Versão com apontador numero
+void maior_sequencia2() {
+    int *num, maior = INT_MIN;
+    printf("Insira a sua sequência: ");
+
+    do {
+        scanf("%d", num);
+        if (*num == 0) break;
+        if (*num > maior) maior = *num;
+    } while (*num);
     printf("O maior elemento é: %d\n", maior);
 }
 

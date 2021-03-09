@@ -110,3 +110,65 @@ int main() {
 /* Em C um array é o endereço da sua primeira componente, ou seja, o que guardamos no y é de facto o endereço já!!
  * Os arrays são endereços!!!!
  */
+
+PI T - 9 mar
+
+...- Alguns modificadores:
+...- int x // na maioria das vezes é um inteiro em 4 bytes - 2^32 inteiros
+...        // -2^n-1 até 2^n-1
+...
+...- unsigned int x // no fundo é inteiro em complemento para 2 (gama: 0 até 2^n-1 -1)
+...- long int x // na maioria das vezes é um inteiro representado em 8 bytes - 2^64 inteiros
+...- unsigned long int x // 64 bits todos usados para representar números positivos
+...- short int x // inteiro com 2 bytes
+...
+...- # Define MAX (a,b) (a>b?a:b) // Sempre que aparecer uma expressão MAX, o compilador substitui pelo que está à frente.
+
+- A ideia de tipar a memória faz muito sentido, porque tipos diferentes ocupam um espaço diferente em mem.
+
+//soma dos elementos de um array
+int sum (int v[], int N) {
+int i, x;
+
+i=sizeof(v);
+
+for (i=x=0; i<N; i++)
+    x += a[i];
+
+    return x;
+    }
+
+//função principal
+int main() {
+int a[10] = {1,2,3,4,5,6,7,8,9,0} //posição de memória válida, que já definimos
+
+int s = 45;
+
+float f = 4.5
+
+//São coisas diferentes !!
+s = s / 2; //divisão inteira
+f = f / 2 //divisão de floats
+
+int *b; //posição de memória inválida, pois não está definida, nem temos acesso à mesma, não é nossa. Dá SIG!
+long int *c
+
+s = sizeof (a); //10x4 = 40
+s = sizeof (int); //4
+s = sizeof (long int); //8
+s = sizeof (b); //8
+
+b = a; //b aponta para a primeira posição de a.
+b = a+3 //b aponta para o índice 3 do array (3 inteiros/índices) para a frente
+
+c = a;
+c = c+a; //avançar 3 long int's: assim a operação b=a+3 != c=a+3 (pois os tipos de dados são diferentes!) 3 long int's = 6 int's
+//Assim estamos no caso de c a avançar mais 3 casas que avancamos em b.
+
+s = sum (a,10);
+//s = sum (b,10);
+
+//OBS. a função sum, como leva o índice 3, vai depois de percorrer o array, continuar, acabando por aceder a coisas na
+mem desconhecidas! Dando SIG!
+return 0;
+}
