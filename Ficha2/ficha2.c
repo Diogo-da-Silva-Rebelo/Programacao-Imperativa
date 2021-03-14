@@ -1,6 +1,7 @@
 #include "stdio.h"
 #define "stdlib.h"
 
+//VERSÕES DE MULT
 float multInt1 (int n, float m){
     float r = 0.0;
     while (n>0) {
@@ -71,6 +72,8 @@ float multInt3 (int n, float m, int *count){
 }
 //OBS. há produção de um efeito lateral na variável count.
 
+
+//VERSÕES DE MDC
 /* 16 24 -- [1..16] */
 
 //versão recursiva
@@ -139,13 +142,24 @@ int mdc4 (int a, int b, int *count) {
 }
 
 
+//VERSOES DE FIB
 int fib (int n){
     if(n<2) return 1;
     else return fib(n-1) + fib(n-2);
 }
 
-//Terminar como TPC
-int fastfib (int n){
+//Versão mais eficiente - guarda os dois valores anteriores
+int fastfib (int n) {
+    int a = 0;
+    int b = 1;
+    int c, i;
 
-    return 0;
+    if (n == 0)
+        return 0;
+    for (i = 2; i <= n; i++) {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
 }
