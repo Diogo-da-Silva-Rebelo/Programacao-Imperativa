@@ -30,7 +30,7 @@ void maior_sequencia2() {
     printf("O maior elemento é: %d\n", maior);
 }
 
-//2.Média da seuqência
+//2.Média da sequência
 void media (){
     int num, total=0;
     float media, soma=0;
@@ -46,7 +46,7 @@ void media (){
     printf("A média é: %.2f\n ", media);
 }
 
-//3.Segundo maior elemento da seuqência
+//3.Segundo maior elemento da sequência
 void segundo_maior() {
     int maior = INT_MIN, seg_maior = INT_MIN, num;
     printf("Insira a sua sequência: ");
