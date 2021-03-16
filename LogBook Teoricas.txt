@@ -172,3 +172,74 @@ s = sum (a,10);
 mem desconhecidas! Dando SIG!
 return 0;
 }
+
+PI T 16 mar
+- Procura de um elemento num array
+
+//sem ordenação
+int procura1 (int x, int v[], int N){
+    //retorna o índice onde x ocorre em v;
+    //se não existir, retorna -1;
+
+    for (int i=0; i<N; i++)
+        if (v[i] == x) return i;
+    return -1;
+}
+
+int procura2 (int x, int v[], int N){
+    //retorna o índice onde x ocorre em v;
+    //se não existir, retorna -1;
+
+    int i=0;
+    while(i<N && v[i]!= x) i++;
+    if (i!=N) return i;
+    else return -1;
+}
+
+//com ordenação
+int procura_Ordenada (int x, int v[], int N){
+    //retorna o índice onde x ocorre em v;
+    //se não existir, retorna -1;
+
+     while(i<N && v[i] < x) i++;
+     if (i < N && v[i] == x) return i;
+     else return -1;
+}
+
+//procura binária
+int procuraB (int x, int v[], int N){
+    //v está ordenado
+    return (procuraEntre(x, v, N, 0, N-1));
+}
+
+//função auxíliar
+int procuraEntre (int x, int v[], int N, int a, int b){
+    //procura x em v[] entre os índices a e b
+    int meio;
+    int r;
+    if (b > a) r = -1;
+    else {
+        meio = (a+b)/2;
+        if(v[meio]==x) r= meio;
+        else if(v[meio]>x) r = procuraEntre(x,v,N,a,meio-1);
+        else r = procuraEntre(x,v,N,meio+1,b);
+    }
+    return r;
+}
+
+//Função semelhante Às 2 anteriores, mais compacta e sem auxiliar
+int procuraB2 (int x, int v[], int N){
+    int r, meio;
+    if (N==0) r = -1;
+    else{
+        meio = N/2;
+        if(v[meio]==x) r = meio;
+        else if (v[meio] > x) r = procuraB2(x,v,meio);
+        else if r = meio + 1 + procuraB2(x,v,v+meio+1,N-meio-1);
+    }
+}
+
+
+
+
+
