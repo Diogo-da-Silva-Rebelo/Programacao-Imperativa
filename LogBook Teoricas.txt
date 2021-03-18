@@ -173,7 +173,7 @@ mem desconhecidas! Dando SIG!
 return 0;
 }
 
-PI T 16 mar
+PI T - 16 mar
 - Procura de um elemento num array
 
 //sem ordenação
@@ -239,7 +239,61 @@ int procuraB2 (int x, int v[], int N){
     }
 }
 
+PI T - 18 mar
 
+- Forma mais fácil de ordenar array:
+    -> Array com N elementos;
+    -> Saber a posição do menor elemento (posição 0);
+    -> Aplicar recursivamente a v+1;
 
+//ordenação de um array
+void ordenaR (int v[], int N){
+    int m, i;
+    if (N > 1) {
+    //descobrir o índice do menor elemento
+      m = 0;
+      for (i=1; i<N;i++){
+      if (v[i] < v[m]) m=i;
+      swap (v,0,m);
+      }
+      ordenaR (v+1, N-1);
+    }
 
+}
 
+void minSort (int v[], int N){
+    int m, i, j;
+    for (j=0, j < N-1; j++){
+    //descobrir o menor elemento desde j até N
+    }
+    m = j;
+        for (i=j+1; i<N; i++){
+            if (v[i] < v[m]) m=i;
+        swap (v,j,i);
+        }
+    }
+}
+
+void selSort (int v[], int N){
+    int i, j;
+
+    for (j=0; j<N-1; j++){
+        for (i = j+1; i<N;i++){
+            if (v[i] < v[j] ) swap(v,i,j);
+        }
+    }
+}
+
+//Coloca no fim o maior elemento!
+void bubble (int v[], int N){
+    int i;
+
+    for (i=0;i<N-1; i++)
+        if (v[i] > v[i+1]) swap (v,i,i+1);
+}
+
+void bubbleSort (int v[], int N) {
+    int i;
+    for (i=0;i<N;i++)
+        bubble(v,N);
+}
