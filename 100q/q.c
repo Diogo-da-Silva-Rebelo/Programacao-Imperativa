@@ -318,25 +318,61 @@ int maiorSufixo (char s1 [], char s2 []){
 }
 
 //coloca todos os prefixos de uma string num array
-void maiorPrefixoArray (char **s1, int N){
+char** prefixToArray (char *s1, int N){
     char** array = malloc(sizeof (char*)*(N));
     for (int i = 0; i < N; i++) {
-        char *buf = malloc(sizeof (char)*(i+2));
-        //char *array = malloc(sizeof(char)*(i+2));
-        strncpy(buf,s1[i],i+1);
-        array[i] = strdup(buf);
+        char *buf = malloc(sizeof (char)*(i+1));
+        strncpy(buf,s1,i+1);
+        array[i] = buf;
     }
-    for (int k = 0; k < N ; k++)
-    printf("%s\n", array[k]);
+    return array;
+}
+//retorna o char no index dado
+char charOfIndex(int index, char *s){
+    return s[index];
+}
+
+//troca elementos do array
+char* reverseArray(char arr[], int start, int end){
+    int temp;
+    while (start < end){
+        temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        start++;
+        end--;
+    }
+    return arr;
+}
+
+//coloca todos os sufixos de uma string num array
+char** suffixToArray (char* s, int N) {
 }
 
 //19. Tamanho do maior sufixo de s1 que é um prefixo de s2
+//corrigir
 int sufPref (char s1[], char s2[]){
-return undefined;
+    int times[strlen(s1)];
+    int max = 0, l;
+    for (int i=0; i < strlen(s1) && strlen(s2); i++){
+        char** c1 = suffixToArray(s1, strlen(s1));
+        char** c2 = prefixToArray(s2, strlen(s2));
+        if (strcmp(c1[i],c2[i]) == 0){
+            int size = strlen(c1[i]);
+            times[i] = size;
+        }
+    }
+    for (l = 0; l < strlen(s1); l++) {
+        if (times[l] >= max) {
+            max = times[l];
+        }
+    }
+    return max;
 }
 
 int main(){
-    char* s[] = {"diogo", "andre", "rodrigo"};
-    maiorPrefixoArray(s,3);
+    char** s = prefixToArray("diogo",5);
+    for (int i=0; i<5; i++)
+        printf("%s,\n", s[i]);
     return 0;
 }
