@@ -181,7 +181,7 @@ void strrev (char s[]) {
 
 //12.Remoção de vogais de uma string
 void mystrnoV (char s[]) {
-    int j,i = 0;
+    int i,j;
     for (i=0; s[i];i++){
         if(s[i] == 'a' ||s[i] == 'e' ||s[i] == 'i' ||s[i] == 'o' ||s[i] == 'u' ||s[i] == 'A' ||s[i] == 'E' ||s[i] == 'I' ||s[i] == 'O' ||s[i] == 'U'){
             for(j = i; s[j]; j++) s[j] = s[j+1];
@@ -207,15 +207,136 @@ void truncW (char t[], int n) {
 }
 
 //14.Char mais frequente na string s
-char charMaisfreq (char s[]){
-
+//função auxíliar que conta a ocorrência de cada char e a retorna
+int ocorrChar(char s[], char a){
+    int times = 0;
+    for (int i=0; s[i] != '\0'; i++){
+        if (s[i] == a) times++;
+    }
+    return times;
 }
 
-//15.
+char charMaisfreq(char s[])
+{
+    int acc[257] = {0};
+    int max = 0;
+    int i;
+    char max_char;
 
+    for (i = 0; s[i] != 0; i++) acc[s[i]]++;
 
-//16.
+    for (i = 0; i < 257; i++)
+        if (acc[i] >= max) {
+            max = acc[i];
+            max_char = i;
+        }
 
-//17.
-dar commit
+    return max_char;
+}
 
+//15. Comprimento da maior substring
+int iguaisConsecutivos (char s[]){
+    int i, j, l, sub[50] = {0}, max = 0, times = 0, k = 0;
+
+    if (!strlen(s)) return 0;
+
+    for (i = 0; s[i] != '\0'; i++){
+        for (j = i+1; j != '\0' && s[i] == s[j]; j++){
+            times++;
+        }
+        sub[k] = times;
+        k++;
+        times = 0;
+    }
+
+    for (l = 0; l<50; l++) {
+        if (sub[l] >= max) {
+            max = sub[l];
+        }
+    }
+    return max+1;
+}
+
+//outra função possível
+int iguaisConsecutivos2(char s[]){
+    int i = 0, max = 0, c = (s[0] != '\0');
+
+    while (s[i]){
+        if (s[i] == s[i + 1])
+            c++;
+        else{
+            if (c > max)
+                max = c;
+            c = 1;
+        }
+        i++;
+    }
+    return max;
+}
+
+//16. Comprimento da maior substring com chars diferentes
+//função auxíliar que retorna o número de ocorrências diferentes num array
+int dif(char *s, int j) {
+    int i;
+    for (i = 0; i < j && s[i] != s[j]; i++);
+    return i == j;
+}
+
+//função principal
+int difConsecutivos (char s[]){
+    int max = 0;
+    int i,j;
+    for(i = 0; s[i]; i++) {
+        for(j = i; s[j]!= '\0' && dif(s+i,j-i) != 0; j++);
+        if(j-i > max) max = j-i;
+    }
+    return max;
+}
+
+//17. Comprimento do maior prefixo de duas strings
+// string: diogo; prefixos: [d],[di],[dio],[diog],[diogo]
+// string: diadora; prefixos: [d],[di],[dia],[diad],[diado],[diador],[diadora]
+//diogo & diadora
+int maiorPrefixo (char s1 [], char s2 []){
+    int i = 0;
+    while (s1[i] != '\0' && s2[i] !='\0' && s1[i]==s2[i]) i++;
+    return i;
+}
+
+//18. Comprimento do maior sufixo de duas strings
+int maiorSufixo (char s1 [], char s2 []){
+    //-1 para dar index
+    int size1 = strlen(s1) - 1;
+    int size2 = strlen(s2) - 1;
+    int i = 0;
+    while (size1 >= 0 && size2 >= 0 && s1[size1]==s2[size2]){
+        i++;
+        size1--;
+        size2--;
+    }
+    return i;
+}
+
+//coloca todos os prefixos de uma string num array
+void maiorPrefixoArray (char **s1, int N){
+    char** array = malloc(sizeof (char*)*(N));
+    for (int i = 0; i < N; i++) {
+        char *buf = malloc(sizeof (char)*(i+2));
+        //char *array = malloc(sizeof(char)*(i+2));
+        strncpy(buf,s1[i],i+1);
+        array[i] = strdup(buf);
+    }
+    for (int k = 0; k < N ; k++)
+    printf("%s\n", array[k]);
+}
+
+//19. Tamanho do maior sufixo de s1 que é um prefixo de s2
+int sufPref (char s1[], char s2[]){
+return undefined;
+}
+
+int main(){
+    char* s[] = {"diogo", "andre", "rodrigo"};
+    maiorPrefixoArray(s,3);
+    return 0;
+}
