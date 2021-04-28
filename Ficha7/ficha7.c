@@ -164,11 +164,19 @@ int main () {
  * 2. Se o número é divisível por 5, escreve pong;
  * 3. Se o número é divisível por 3 e 5 escreve ping-pong; */
 //partir da condição mais específica para as outras;
-void ping_pong(int num){
+void ping_pong(){
     int i = 0;
-        if (num % 3 && num %5) {
-            print
+    while (i < 100){
+        if (!(i % 3) && !(i % 5)) {
+            printf("ping-pong");
         }
+        else if (!(i % 5)){
+            printf("pong");
+        }
+        else if (!(i % 3)){
+            printf("ping");
+        }
+        i++;
     }
 }
 
