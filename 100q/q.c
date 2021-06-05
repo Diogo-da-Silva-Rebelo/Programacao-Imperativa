@@ -369,10 +369,3 @@ int sufPref (char s1[], char s2[]){
     }
     return max;
 }
-
-int main(){
-    char** s = prefixToArray("diogo",5);
-    for (int i=0; i<5; i++)
-        printf("%s,\n", s[i]);
-    return 0;
-}
