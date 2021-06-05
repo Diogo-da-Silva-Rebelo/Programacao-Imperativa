@@ -112,6 +112,33 @@ ABin newNode(int data){
     return (a);
 }
 
+//travessias
+// [ left, visit, right ]
+void inOrder(ABin n){
+    if (n) {
+        if (n->left) inOrder(n->left);
+        printf("%d ", n->data);
+        if (n->right) inOrder(n->right);
+    }
+}
+
+// [ visit, left, right ]
+void preOrder(ABin n){
+   if (n) {
+       printf("%d ", n->data);
+       if (n->left) preOrder(n->left);
+       if (n->right) preOrder(n->right);
+   }
+}
+
+// [ left, right, visit ]
+void posOrder(Abin n){
+    if(n) {
+        if (n->left) posOrder(n->left);
+        if (n->right) posOrder(n->right);
+        printf("%d ", n->data);
+    }
+}
 void printABin(ABin a){
     if(a != NULL) {
         printABin(a->left);
@@ -195,6 +222,64 @@ Palavras words (char *texto) {
     new->comp = n;
     new->prox = words(texto + e + n);
     return new;
+}
+
+// 3
+
+Palavras daLinha (Palavras t, int n) {
+    int len = 0;
+    Palavras prev;
+    for(;len < n && t;t = t->prox) {
+        len += t->comp + 1;
+        if(len > n) break;
+        prev = t;
+    }
+    t = prev->prox;
+    prev->prox = NULL;
+    return t;
+}
+
+// 4
+int tamLinha(Palavras p, int* numP) {
+    int len = 0;
+    (*numP) = 0;
+    while(p) {
+        len += p->comp;
+        if(p->prox) len++;
+        (*numP)++;
+        p = p->prox;
+    }
+    return len;
+}
+
+void escreveLinha (Palavras p, int n) {
+    int numP;
+    int len = tamLinha(p,&numP);
+    if(numP == 1) printf("%s\n",p->palavra);
+    else {
+        int espacos = n - len;
+        while(p) {
+            for(int i = 0; i < p->comp; i++) putchar(p->palavra[i]);
+            numP--;
+            if(p->prox) {
+                putchar(' ');
+                for(;(espacos/numP) > 0; espacos--) putchar(' ');
+            }
+            p = p->prox;
+        }
+    }
+    printf("\n");
+}
+
+// 5
+void formata (char texto[], int largura) {
+    Palavras pals = words(texto);
+    Palavras resto;
+    while((resto = daLinha(pals,largura))){
+        escreveLinha(pals, largura);
+        pals = resto;
+    }
+    escreveLinha(pals,largura);
 }
 
 int main(){
