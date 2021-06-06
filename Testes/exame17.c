@@ -3,11 +3,18 @@
 #include <math.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <unistd.h>
 
 typedef struct nodo {
     int valor;
     struct nodo *esq, *dir;
 } *ABin;
+
+typedef struct listaP{
+    char *pal;
+    int cont;
+    struct listaP *prox;
+} Nodo, *Hist;
 
 //Parte A
 //1
@@ -38,9 +45,9 @@ void my_strnoV (char s[]) {
 int dumpAbinAux (ABin a, int v[], int N, int i) {
     if (a == NULL) return i;
     else {
-        i = dumpAbinAux(a -> left, v, N, i);
-        if (i != N) v[i++] = a -> data;
-        i = dumpAbinAux(a->right, v, N, i);
+        i = dumpAbinAux(a->esq, v, N, i);
+        if (i != N) v[i++] = a ->valor;
+        i = dumpAbinAux(a->dir, v, N, i);
     }
     return i;
 }
@@ -50,17 +57,17 @@ int dumpAbin (ABin a, int *v, int N) {
 }
 
 //PosOrder (visit, left, right)
-int dumpAbinIdx (ABin a, int v[], int N, int i) {
+int dumpAbinIdx2 (ABin a, int v[], int N, int i) {
     int esq, dir;
     if (a == NULL || i == N) return 0;
     v[i] = a->valor;
-    esq = dumpAbinIdx(a->esq, v, N, i + 1);
-    dir = dumpAbinIdx(a->dir, v, N, i + 1 + esq);
+    esq = dumpAbinIdx2(a->esq, v, N, i + 1);
+    dir = dumpAbinIdx2(a->dir, v, N, i + 1 + esq);
     return esq + dir + 1;
 }
 
-int dumpAbin (ABin a, int v[], int N) {
-    return dumpAbinIdx(a, v, N, 0);
+int dumpAbin2 (ABin a, int v[], int N) {
+    return dumpAbinIdx2(a, v, N, 0);
 }
 
 //4
@@ -80,9 +87,109 @@ int lookupAB(ABin a, int x){
     return 0;
 }
 
+//versão recursiva
+int lookupABRec(ABin a, int x) {
+    if (!a) return 0;
+    else {
+        if (a->valor == x) return 1;
+        if (x < a->valor) lookupABRec(a->esq, x);
+        if (x > a->valor) lookupABRec(a->dir, x);
+    }
+}
 //Parte B
+//creating new node
+Hist creatNode(char* p, int cont){
+        Hist new = malloc(sizeof(Nodo));
+        if (new){
+        new->pal = p;
+        new->cont = cont;
+        new->prox = NULL;
+    }
+    return new;
+}
 
-int main(){
+Hist acrescentaInicio (Hist h, char *palavra){
+    Hist aux = malloc(sizeof (Nodo));
+    //2. Copiar informação para a nova célula;
+    aux->pal = strdup(palavra);
+    aux->cont = 1;
+    //3. Unir a célula à lista
+    aux->prox = h;
+    return aux;
+}
+
+//inserção ordenada (assumimos que a lista está ordenada)
+//Acesso ordenado
+Hist acrescentaLexico(Hist *h, char *pal){
+    if (!h || (strcmp(pal,(*h)->pal) < 0)) {
+        return acrescentaInicio((*h),pal);
+    } else if ((strcmp(pal,(*h)->pal) == 0)) {
+        (*h)->cont++;
+        return (*h);
+    } else {
+        (*h)->prox = acrescentaLexico(&(*h)->prox,pal);
+        return (*h);
+    }
+}
+
+int inc(Hist *h, char* pal) {
+    if (!pal) {
+        printf("Palavra inexistente!\n");
+        return 0;
+    }
+
+    if (!h || (strcmp(pal,(*h)->pal) < 0)) {
+        (*h) = acrescentaInicio((*h),pal);
+        return 1;
+    } else if ((strcmp(pal,(*h)->pal) == 0)) {
+        (*h)->cont++;
+        return 1;
+    } else {
+        (*h)->prox = acrescentaLexico(&(*h)->prox,pal);
+        return 1;
+    }
+}
+
+//2
+char* remMaisFreq(Hist *h, int* count){
+    if (!(*h)) return NULL;
+
+    char * maisFreq = NULL;
+    int max_occ = 0;
+
+    while((*h)){
+        if ((*h)->cont > max_occ) {
+            max_occ = (*h)->cont;
+            *count = max_occ;
+            maisFreq = (*h)->pal;
+        }
+        (*h) = (*h)->prox;
+    }
+    return maisFreq;
+}
+
+//3
+char* convert(char* word){
+    int i,j;
+    for(i=0; word[i];i++){
+        if (isalpha(word[i]) == 0){
+            for(j = i; word[j];j++) word[j] = (word[j+1]);
+            i--;
+        }
+    }
+
+    for(i=0; word[i];i++){
+        word[i] = toupper(word[i]);
+    }
+    return word;
+}
+
+int main(int argc, char* argv[] {
+
+}
+
+//main de teste
+int FakeMain(){
     char dest[20];
     printf("%s\n", my_strcpy(dest,"Diogo Rebelo"));
     my_strnoV(dest);
