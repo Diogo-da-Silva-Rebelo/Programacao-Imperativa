@@ -15,7 +15,7 @@ typedef struct slist {
 
 typedef struct node {
     int data;
-    ABin *left, *right;
+    struct node *left, *right;
 } *ABin;
 
 //Parte A
@@ -132,7 +132,7 @@ void preOrder(ABin n){
 }
 
 // [ left, right, visit ]
-void posOrder(Abin n){
+void posOrder(ABin n){
     if(n) {
         if (n->left) posOrder(n->left);
         if (n->right) posOrder(n->right);
@@ -296,15 +296,17 @@ int main(){
     int minimo = maisCentral (pos, 2);
     printf("%d\n", minimo);
     */
-    /*
-    ABin a = newNode(1);
-    addOrd(a,3);
-    addOrd(a,12);
-    addOrd(a,10);
-    addOrd(a,15);
-    addOrd(a,24);
+    int v[20];
+    ABin a = addOrd(a,3);
+    addOrd(a,6);
+    addOrd(a,2);
+    addOrd(a,8);
+    addOrd(a,5);
     printABin(a);
-    */
+
+    for (int i = 0; i < 6;i++){
+        printf("\n%d-", v[i] );
+    }
     /*
     char *s = strdup("Aqui ao leme sou mais  do  que\n"
                      "eu: Sou um  povo  que  quer o\n"
