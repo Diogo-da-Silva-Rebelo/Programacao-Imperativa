@@ -333,9 +333,9 @@ char charOfIndex(int index, char *s){
 }
 
 //troca elementos do array
-char* reverseArray(char arr[], int start, int end){
+char* reverseArray(char arr[], int start, int end) {
     int temp;
-    while (start < end){
+    while (start < end) {
         temp = arr[start];
         arr[start] = arr[end];
         arr[end] = temp;
@@ -345,27 +345,195 @@ char* reverseArray(char arr[], int start, int end){
     return arr;
 }
 
-//coloca todos os sufixos de uma string num array
-char** suffixToArray (char* s, int N) {
+//19. Tamanho do maior sufixo de s1 que é um prefixo de s2
+int sufPref (char s1[], char s2[]) {
+    int i, j = 0, c = 0;
+    for (i = 0; s1[i] != '\0'; i++) {
+        if (s1[i] == s2[j]) {
+            c++;
+            j++;
+        } else {
+            c = 0;
+            j = 0;
+        }
+    }
+    return c;
 }
 
-//19. Tamanho do maior sufixo de s1 que é um prefixo de s2
-//corrigir
-int sufPref (char s1[], char s2[]){
-    int times[strlen(s1)];
-    int max = 0, l;
-    for (int i=0; i < strlen(s1) && strlen(s2); i++){
-        char** c1 = suffixToArray(s1, strlen(s1));
-        char** c2 = prefixToArray(s2, strlen(s2));
-        if (strcmp(c1[i],c2[i]) == 0){
-            int size = strlen(c1[i]);
-            times[i] = size;
+//20. conta palavras de uma sring
+int contaPal (char s[]) {
+    int i;
+    int sum = 0;
+    int flag = 0;
+    for (i = 0; s[i]; i++) {
+        if ((s[i] == ' ' || s[i] == '\n' || s[i] == '\t') && flag == 0) continue;
+        else if (s[i] == ' ' && flag == 1) {
+            sum++;
+            flag = 0;
+        } else {
+            flag = 1;
+            if (s[i + 1] == '\0') {
+                sum++;
+            }
         }
     }
-    for (l = 0; l < strlen(s1); l++) {
-        if (times[l] >= max) {
-            max = times[l];
+    return sum;
+}
+
+//21. conta vogais na string
+int contaVogais (char s[]) {
+    int i = 0;
+    int sum = 0;
+    for (i = 0; s[i]; i++) {
+        if (s[i] == 'A' || s[i] == 'a' || s[i] == 'E' || s[i] == 'e' || s[i] == 'I' || s[i] == 'i' || s[i] == 'O' ||
+            s[i] == 'o' || s[i] == 'U' || s[i] == 'u') {
+            sum++;
         }
     }
-    return max;
+    return sum;
+}
+
+//22. careteres contidos numa string
+//verifica se o char dado está em b
+int elem (char s, char b[]) {
+    int i;
+    for (i = 0; b[i] != '\0'; i++) {
+        if (s == b[i]) return 1;
+    }
+    return 0;
+}
+
+int contida (char a[], char b[]) {
+    int i;
+    for (i = 0; a[i]; i++) {
+        if (elem(a[i], b)) continue;
+        else {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+//23. verifica se a palavra é palindrome/capicua
+int palindroma (char s[]) {
+    int i;
+    int j = strlen(s) - 1;
+
+    for (i = 0; s[i] != '\0'; i++) {
+        if (s[i] != s[j]) return 0;
+        else j--;
+    }
+    return 1;
+
+}
+
+//24. retira careteres repetidos e dá o tamanho da string resultante.
+int remRep (char x[]) {
+    int i = 0, j = 0;
+    for (i = 0; x[i]; i++) {
+        if (x[i] == x[i + 1]) {
+            for (j = i; x[j]; j++) {
+                x[j] = x[j + 1];
+            }
+            i--;
+        }
+    }
+    return strlen(x);
+}
+
+//25. limpa espaços
+int limpaEspacos (char t[]) {
+    int i, j = 0;
+    for (i = 0; t[i]; i++) {
+        if (t[i] == ' ' && t[i + 1] != ' ') {
+            t[j] = t[i];
+            j++;
+        } else if (t[i] != ' ') {
+            t[j] = t[i];
+            j++;
+        }
+    }
+    t[j] = '\0';
+    return j;
+}
+
+//26. insere num vector ordenado
+
+void insere (int v[], int N, int x) {
+    int i;
+    for (i = N - 1; i >= 0 && x < v[i]; i--)
+        v[i + 1] = v[i];
+    v[i + 1] = x;
+}
+
+//27. soma de vetores
+void merge (int r [], int a[], int b[], int na, int nb) {
+    int i, j, z;
+    i = j = z = 0;
+    int t = na + nb;
+    int v[t];
+    while (i < na && j < nb) {
+        if (a[i] < b[j]){
+            v[z] = a[i];
+            z++;
+            i++;
+        }
+        else {
+            v[z] = b[j];
+            z++;
+            j++;
+        }
+    }
+
+    while (i == na) v[z++] = b[j++];
+    while (j == nb) v[z++] = a[i++];
+    for (i = 0; i < t; i++)
+        r[i] = v[i];
+}
+
+//28. verifica ordenação crescente
+int crescente (int a[], int i, int j){
+    for (i; i < j; i++){
+        if (a[i] > a[i+1]) return 0;
+    }
+    return 1;
+}
+
+//29. retira negativos
+int retiraNeg (int v[], int N) {
+    int i, j = 0;
+    for (i = 0; i < N; i++) {
+        if (v[i] >= 0) {
+            v[j] = v[i];
+            j++;
+        }
+    }
+    return j;
+}
+
+//30. dá o elemento menos frequente
+int menosFreq (int v[], int N) {
+    int i, c = 0, menor = v[0];
+    int cont = 1;
+
+    for (i = 0; i < N - 1; i++) {
+        if (v[i] == v[i + 1])
+            cont++;
+        else {
+            if (c == 0 || cont < c) {
+                c = cont;
+                menor = v[i];
+            }
+            cont = 1;
+        }
+    }
+    if (cont < c)
+        menor = v[i];
+    return menor;
+}
+
+int main(){
+    char* lol = strdup("         ");
+    int x = contaPal(lol);
+    printf("%d\n", x);
 }
