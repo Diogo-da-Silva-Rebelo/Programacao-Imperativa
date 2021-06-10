@@ -184,10 +184,6 @@ char* convert(char* word){
     return word;
 }
 
-int main(int argc, char* argv[] {
-
-}
-
 //main de teste
 int FakeMain(){
     char dest[20];
@@ -195,4 +191,63 @@ int FakeMain(){
     my_strnoV(dest);
     printf("%s\n", dest);
     return 0;
+}
+
+//última pergunta
+int compare_string(char *s, char *p) {
+    int i, j;
+    i = j = 0;
+    while (s[i] && p[j]) {
+        if (!isalpha(s[i])) {
+            i++;
+            continue;
+        }
+        if (!isalpha(p[j])) {
+            j++;
+            continue;
+        }
+        if(toupper(s[i++]) != toupper(p[j++])) return 0;
+    }
+    return !s[i] && !p[j];
+}
+
+//Inserir uma palavra na lista
+void insert(Hist * h, char * word) {
+    //se o seu comprimento for <= 3 a palavra não é adicionada
+    if(strlen(word) <= 3) return;
+    //enquanto a lista não for nula e a palavra do nodo em questão for diferente da dada
+    //avançamos na lista
+    while(*h && !compare_string(word,(*h)->pal)) h = &((*h)->prox);
+
+    //se a palavra dada for igual, incrementamos o seu count
+    if(*h) (*h)->count++;
+    //se a palavra não está na lista, vamos adiciona-la
+    else {
+        Hist new = malloc(sizeof(Nodo));
+        if (new != NULL) {
+            new->count = 0;
+            new->pal = strdup(word);
+            new->prox = NULL;
+            *h = new;
+        }
+    }
+}
+
+
+Hist *readlines() {
+    Hist* h;
+    char *line;
+    size_t size = 256;
+    while (getline(&line, &size, stdin)) {
+        while (line) {
+            word = strsep(&line, " ");
+            insert(h,word);
+        }
+    }
+    return h;
+}
+
+void print10() {
+    Hist *h = readlines();
+    for(int i = 0; i < 10; i++) puts(remMaisFreq(h,NULL));
 }
