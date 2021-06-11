@@ -532,8 +532,329 @@ int menosFreq (int v[], int N) {
     return menor;
 }
 
-int main(){
-    char* lol = strdup("         ");
-    int x = contaPal(lol);
-    printf("%d\n", x);
+//31. mais frequente num array de inteiros (corrigir)
+//dá o número de ocorrências
+int OccElem(int v[], int N, int x) {
+    int i, count = 0;
+    if (N == 0) return count;
+    for (i = 0; i < N; i++) {
+        if (v[i] == x) count++;
+    }
+    return count;
+}
+
+//Assume já [1,2;3,4;...]
+int maxElem(int v[], int N) {
+    int i;
+    int max = v[0];
+    int maxOcc = v[1];
+    if (N == 1) {
+        return v[0];
+    } else {
+        for (i = 0; i < N - 1; i++) {
+            if (i % 2 != 0) {
+                if (v[i] > maxOcc) {
+                    maxOcc = v[i];
+                    max = v[i - 1];
+                }
+            }
+        }
+    }
+    return maxOcc;
+}
+
+int maisFreq(int v[], int N){
+    int o[N];
+    int i,d = 0;
+    for (i = 0; i < N ; i++){
+        o[i] = v[i];
+        d = OccElem(v,N,v[i]);
+        o[i+1] = d;
+    }
+    o[i] = '\0';
+    return maxElem(o,N);
+}
+
+//versão correta
+int maisFreq (int v[], int N) {
+    int i, c = 0, maior;
+    int cont = 1;
+    for (i = 0; i < N - 1; i++) {
+        if (v[i] == v[i + 1])
+            cont++;
+        else cont = 1;
+        if (cont > c) {
+            c = cont;
+            maior = v[i];
+        }
+    }
+    if (cont > c)
+        maior = v[i];
+    return maior;
+}
+
+//33. elimina repetições
+int repetido (int a, int v[], int n){
+    int i;
+    for (i=0; i<n; i++){
+        if(a==v[i])
+            return 1;
+    }
+    return 0;
+}
+
+int elimRep (int v[], int n) {
+    int i, j = 0;
+    int f[n];
+    for (i = 0; i < n; i++) {
+        if (!repetido(v[i], f, j)) {
+            f[j] = v[i];
+            v[j] = v[i];
+            j++;
+        }
+    }
+    return j;
+}
+
+//34. elimina repetições num array ordenado
+int elimRepOrd (int v[], int n) {
+    int i, j = 0;
+    for (i = 0; i < n - 1; i++) {
+        if (v[i] != v[i + 1]) {
+            v[j] = v[i];
+            j++;
+        }
+    }
+    v[j] = v[i];
+    return j + 1;
+}
+//35. elementos em comum de dois vectores
+int comunsOrd (int a[], int na, int b[], int nb) {
+    int i, j, c;
+    i = j = c = 0;
+    while (i < na && j < nb) {
+        if (a[i] == b[j]) {
+            c++;
+            i++;
+            j++;
+        } else {
+            if (a[i] < b[j])
+                i++;
+            else j++;
+        }
+    }
+    return c;
+}
+
+//36. Número de elementos em comum
+int comuns (int a[], int na, int b[], int nb) {
+    int i, j, c = 0;
+    for (i = 0; i < na; i++) {
+        for (j = 0; j < nb; j++) {
+            if (a[i] == b[j]) {
+                c++;
+                break;
+            }
+        }
+    }
+    return c;
+}
+
+//37. Indice do menor elemento do vector.
+int minInd (int v[], int n) {
+    int i, idx_min = 0, min = v[0];
+    for (i = 0; i < n; i++) {
+        if (v[i] < min) {
+            min = v[i];
+            idx_min = i;
+        }
+    }
+    return z;
+}
+
+//38. Somas acumuladas
+void somasAc (int v[], int Ac[], int N) {
+    int i, soma = 0;
+    for (i = 0; i < N; i++) {
+        soma += v[i];
+        Ac[i] = soma;
+    }
+}
+
+//39. Verifica se matriz é triangular Superior
+int triSup (int N, float m[N][N]) {
+    int i, j;
+    for (j = 0; j < N; j++) {
+        for (i = j + 1; i < N; i++) {
+            if (m[i][j] != 0)
+                return 0;
+        }
+    }
+    return 1;
+}
+//40. Matriz transposta
+void transposta (int N, float m [N][N]) {
+    int i, j;
+    int v[N][N];
+    //cria uma nova matriz transposta
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < N; j++)
+            v[i][j] = m[j][i];
+    }
+    //copia matriz criada para a dada
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < N; j++)
+            m[i][j] = v[i][j];
+    }
+}
+
+//41. Adiciona duas matrizes
+void addTo (int N, int M, int a[N][M], int b[N][M]) {
+    int i, j;
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < M; j++)
+            a[i][j] += b[i][j];
+    }
+}
+//42. União de dois conjuntos
+int unionSet (int N, int v1[N], int v2[N], int r[N]) {
+    int i;
+    for (i = 0; i < N; i++) {
+        if (v1[i] == 1 || v2[i] == 1) {
+            r[i] = 1;
+        } else r[i] = 0;
+    }
+    return 0;
+}
+//43. Interseção de dois conjuntos
+int intersectSet (int N, int v1[N], int v2[N], int r[N]) {
+    int i;
+    for (i = 0; i < N; i++) {
+        if (v1[i] == 0 || v2[i] == 0)
+            r[i] = 0;
+        else r[i] = 1;
+    }
+    return 0;
+}
+
+//44. Interseção de multiconjuntos
+int intersectMSet (int N, int v1[N], int v2[N], int r[N]) {
+    int i;
+    for (i = 0; i < N; i++) {
+        if (v1[i] == 0 || v2[i] == 0)
+            r[i] = 0;
+        else if (v1[i] > v2[i])
+            r[i] = v2[i];
+        else r[i] = v1[i];
+    }
+    return 0;
+}
+
+//45.União de multiconjuntos
+int unionMSet (int N, int v1[N], int v2[N], int r[N]) {
+    int i;
+    for (i = 0; i < N; i++) {
+        if (v1[i] > v2[i])
+            r[i] = v1[i];
+        else r[i] = v2[i];
+    }
+    return 0;
+}
+
+//46. Nº de elementos do multiconjunto
+int cardinalMSet (int N, int v[N]) {
+    int i, soma = 0;
+    for (i = 0; i < N; i++)
+        soma += v[i];
+    return soma;
+}
+
+//47.Posição final do robot após sequência de movimentos
+typedef enum movimento {
+    Norte, Oeste, Sul, Este
+} Movimento;
+
+typedef struct posicao {
+    int x, y;
+} Posicao;
+
+Posicao posFinal (Posicao inicial, Movimento mov[], int N) {
+    int i;
+    for (i = 0; i < N; i++) {
+        if (mov[i] == Norte) {
+            inicial.y += 1;
+        } else if (mov[i] == Sul) {
+            inicial.y -= 1;
+        } else if (mov[i] == Oeste) {
+            inicial.x -= 1;
+        } else {
+            inicial.x += 1;
+        }
+    }
+    return inicial;
+}
+//48. Caminho de posições
+int caminho (Posicao inicial, Posicao final, Movimento v[], int N) {
+    int i, a;
+
+    if (abs(final.x - inicial.x + final.y - inicial.y) > N) {
+        return (N - abs(final.x - inicial.x + final.y - inicial.y));
+    } else {
+        if (inicial.x > final.x) {
+            for (i = 0; inicial.x > final.x; i++) {
+                v[i] = Oeste;
+                inicial.x = inicial.x - 1;
+            }
+        } else {
+            for (i = 0; final.x > inicial.x; i++) {
+                v[i] = Este;
+                final.x = final.x - 1;
+            }
+        }
+        if (inicial.y > final.y) {
+            for (a = i; inicial.y > final.y; a++) {
+                v[a] = Sul;
+                inicial.y = inicial.y - 1;
+            }
+        } else {
+            for (a = i; final.y > inicial.y; a++) {
+                v[a] = Norte;
+                final.y = final.y - 1;
+            }
+        }
+    }
+    return a;
+}
+//49. Posição mais perto da origem
+int maiscentral (Posicao pos[], int N) {
+    int index,i,distancia;
+    index = 0;
+    //distâcia à origem da primeira posição
+    distancia = pos[0].x*pos[0].x + pos[0].y*pos[0].y;
+
+    for (i = 1; i < N; i++) {
+        if (pos[i].x*pos[i].x + pos[i].y*pos[i].y < distancia) {
+            distancia = pos[i].x*pos[i].x + pos[i].y*pos[i].y;
+            index = i;
+        }
+    }
+    return index;
+}
+//50.Posições adjacentes (dist == 1)
+//Poderia ter usado esta função em cima (oops)
+int distancia (Posicao p, Posicao k) {
+    int dist;
+    dist = abs(p.x-k.x) + abs(p.y-k.y);
+    return dist;
+}
+
+int vizinhos (Posicao p, Posicao pos[], int N) {
+    int i, conta = 0;
+
+    for (i = 0; i < N; i++) {
+        if (distancia(p, pos[i]) == 1) {
+            conta++;
+        }
+    }
+    return conta;
 }
