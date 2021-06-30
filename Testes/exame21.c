@@ -31,8 +31,8 @@ int paresImpares1(int v[], int N){
 //2
 typedef struct LInt{
     int valor;
-    LInt prox;
-};
+    struct LInt *prox;
+} *LInt;
 
 void merge(LInt *r, LInt a, LInt b) {
     while (a || b) {
@@ -48,10 +48,10 @@ void merge(LInt *r, LInt a, LInt b) {
 }
 
 //3
-int latino(int N,int m[N][N]){
-    for(int i=0;i<N;i++){
-        for(int j=0;j<N;j++){
-            m[i][j]=(i+j)%N +1;
+int void latino(int N,int m[N][N]) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            m[i][j] = (i + j) % N + 1;
         }
     }
 }
