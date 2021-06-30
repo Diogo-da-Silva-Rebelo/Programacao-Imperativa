@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pessoas.h"
-
+//projeto em https://codeboard.io/projects/20354
 void troca (Pessoa *p[], int i, int j){
     // esta função troca os valores dos indices i e j
     Pessoa *tmp;
